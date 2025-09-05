@@ -1,7 +1,7 @@
 import './GlobalStyles.scss';
 
-function GlobalStyles() {
-    return <div>React</div>;
+function GlobalStyles({children}) {
+    return children;
 }
 
 export default GlobalStyles;
