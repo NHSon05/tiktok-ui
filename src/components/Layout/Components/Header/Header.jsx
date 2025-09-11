@@ -1,17 +1,34 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleXmark, faSpinner, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+// import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css'; // optional
+import Tippy from '@tippyjs/react/headless';
+
 
 import styles from './Header.module.scss'
 import classNames from 'classnames/bind';
+import Button from '../../../Button/Button';
+
+import { useEffect, useState } from 'react';
+
+import Wrapper from '../../../Popper/Wrapper';
 
 
 const cx = classNames.bind(styles)
 function Header() {
+
+    const [searchResult, setSearchResult] = useState([]);
+    useEffect(() => {
+        setTimeout(() => {
+            setSearchResult(1);
+        }, 0);
+    })
+    
     return (
         <header className={cx('wrapper')}>
             <div className={cx('inner')}>
                 <div className={cx('logo')}>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 118 42" height="42" width="118" alt="TikTok" class="css-1cdjqym-5e6d46e3--StyledLogoLight e1487oh21">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 118 42" height="42" width="118" alt="TikTok" className="css-1cdjqym-5e6d46e3--StyledLogoLight e1487oh21">
                         <path fill="#25F4EE" d="M9.875 16.842v-1.119A9 9 0 0 0 8.7 15.64c-4.797-.006-8.7 3.9-8.7 8.708a8.7 8.7 0 0 0 3.718 7.134A8.68 8.68 0 0 1 1.38 25.55c0-4.737 3.794-8.598 8.495-8.707"></path>
                         <path fill="#25F4EE" d="M10.086 29.526c2.14 0 3.89-1.707 3.967-3.83l.006-18.968h3.463a7 7 0 0 1-.11-1.202h-4.726l-.006 18.969a3.98 3.98 0 0 1-3.967 3.829 3.9 3.9 0 0 1-1.846-.46 3.95 3.95 0 0 0 3.22 1.662m13.905-16.36v-1.055a6.5 6.5 0 0 1-3.583-1.068 6.57 6.57 0 0 0 3.583 2.123"></path>
                         <path fill="#FE2C55" d="M20.409 11.044a6.54 6.54 0 0 1-1.616-4.316h-1.265a6.56 6.56 0 0 0 2.88 4.316M8.706 20.365a3.98 3.98 0 0 0-3.973 3.976c0 1.528.869 2.858 2.134 3.523a3.94 3.94 0 0 1-.754-2.321 3.98 3.98 0 0 1 3.973-3.976c.409 0 .805.07 1.175.185v-4.833a9 9 0 0 0-1.175-.083c-.07 0-.134.006-.204.006v3.708a4 4 0 0 0-1.176-.185"></path>
@@ -22,19 +39,32 @@ function Header() {
                         <path fill="#000" d="M91.58 28.887a3.94 3.94 0 0 1-3.94-3.945 3.94 3.94 0 1 1 7.882 0c0 2.18-1.77 3.945-3.942 3.945m0-12.058c-4.477 0-8.106 3.631-8.106 8.113s3.629 8.113 8.106 8.113 8.106-3.631 8.106-8.113-3.628-8.113-8.106-8.113"></path>
                     </svg>
                 </div>
-                <div className={cx('search')}>
-                    <input placeholder='Search accounts and videos' spellCheck={false}/>
-                    <button className={cx('clear')}>
-                        <FontAwesomeIcon icon={faCircleXmark}/>
-                    </button>
-                    {/* Loading */}
-                    <FontAwesomeIcon className={cx('loading')} icon={faSpinner}/>
-                    <button className={cx('search-btn')}>
-                        <FontAwesomeIcon icon={faMagnifyingGlass}/>
-                    </button>
-                </div>
+                <Tippy
+                        interactive
+                        visible={searchResult.length > 0}
+                        render={(attrs) => (
+                            <div className={cx('search-result')} tabIndex="-1" {...attrs}>
+                                <Wrapper>
+                                    <h2 className={cx('search-title')}>Accounts</h2>
+                                </Wrapper>
+                            </div>
+                        )}
+                    >
+                    <div className={cx('search')}>
+                        <input placeholder='Search accounts and videos' spellCheck={false}/>
+                        <button className={cx('clear')}>
+                            <FontAwesomeIcon icon={faCircleXmark}/>
+                        </button>
+                        {/* Loading */}
+                        <FontAwesomeIcon className={cx('loading')} icon={faSpinner}/>
+                    
+                        <button className={cx('search-btn')}>
+                            <FontAwesomeIcon icon={faMagnifyingGlass}/>
+                        </button>
+                    </div>
+                </Tippy>
                 <div className={cx('action')}>
-
+                        <Button>Login </Button>
                 </div>
             </div>
         </header>
