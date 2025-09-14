@@ -19,7 +19,20 @@ const cx = classNames.bind(styles)
 const MENU_ITEMS = [
     {
         icon: <FontAwesomeIcon icon={faLanguage} />,
-        title: 'English'
+        title: 'English',
+        children:{
+            title: 'Language',
+            data: [
+                {
+                    code: 'en',
+                    title: 'English'
+                },
+                {
+                    code: 'vi',
+                    title: 'Tiếng Việt'
+                },
+            ]
+        }
     },
     {
         icon: <FontAwesomeIcon icon={faQuestionCircle} />,
