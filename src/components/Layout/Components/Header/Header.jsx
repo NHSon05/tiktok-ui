@@ -1,8 +1,10 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircleXmark, faSpinner, faMagnifyingGlass, faEllipsisVertical, faLanguage, faQuestionCircle, faKeyboard } from '@fortawesome/free-solid-svg-icons';
+import { faCircleXmark, faSpinner, faMagnifyingGlass, faEllipsisVertical, faLanguage, faQuestionCircle, faKeyboard, faUpload, faUser, faCoins, faGear, faSign } from '@fortawesome/free-solid-svg-icons';
 // import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
-import Tippy from '@tippyjs/react/headless';
+import HeadlessTippy from '@tippyjs/react/headless';
+import Tippy from '@tippyjs/react';
+
 
 
 import styles from './Header.module.scss'
@@ -20,19 +22,6 @@ const MENU_ITEMS = [
     {
         icon: <FontAwesomeIcon icon={faLanguage} />,
         title: 'English',
-        children:{
-            title: 'Language',
-            data: [
-                {
-                    code: 'en',
-                    title: 'English'
-                },
-                {
-                    code: 'vi',
-                    title: 'Tiếng Việt'
-                },
-            ]
-        }
     },
     {
         icon: <FontAwesomeIcon icon={faQuestionCircle} />,
@@ -42,8 +31,38 @@ const MENU_ITEMS = [
     {
         icon: <FontAwesomeIcon icon={faKeyboard} />,
         title: 'Keyboard shortcuts'
+    },   
+]
+ const userMenu = [
+    {
+        icon: <FontAwesomeIcon icon={faUser} />,
+        title: 'View profile',
+        to: '/@hoa'
     },
-    
+    {
+        icon: <FontAwesomeIcon icon={faCoins} />,
+        title: 'Get coin',
+        to: '/feedback'
+    },
+    {
+        icon: <FontAwesomeIcon icon={faGear} />,
+        title: 'Settings',
+        to: '/Settings'
+    },
+    {
+        icon: <FontAwesomeIcon icon={faLanguage} />,
+        title: 'English',
+    },
+    {
+            icon: <FontAwesomeIcon icon={faQuestionCircle} />,
+            title: 'Feedback and help',
+            to: '/feedback'
+    },
+    {
+        icon: <FontAwesomeIcon icon={faSign} />,
+        title: 'Log out',
+        to: '/'
+    },
 ]
 
 function Header() {
@@ -54,6 +73,10 @@ function Header() {
             setSearchResult(1);
         }, 0);
     })
+
+    const currentUser = false; 
+
+   
     
     return (
         <header className={cx('wrapper')}>
@@ -70,7 +93,7 @@ function Header() {
                         <path fill="#000" d="M91.58 28.887a3.94 3.94 0 0 1-3.94-3.945 3.94 3.94 0 1 1 7.882 0c0 2.18-1.77 3.945-3.942 3.945m0-12.058c-4.477 0-8.106 3.631-8.106 8.113s3.629 8.113 8.106 8.113 8.106-3.631 8.106-8.113-3.628-8.113-8.106-8.113"></path>
                     </svg>
                 </div>
-                <Tippy
+                <HeadlessTippy
                         interactive
                         visible={searchResult.length > 0}
                         render={(attrs) => (
@@ -93,20 +116,37 @@ function Header() {
                             <FontAwesomeIcon icon={faMagnifyingGlass}/>
                         </button>
                     </div>
-                </Tippy>
-                <div className={cx('action')}>
-                    <Button text>Upload </Button>
-                    <Button primary >Login </Button>
+                </HeadlessTippy>
 
+                <div className={cx('action')}>
+                    {currentUser ? (
+                        <>
+                            <Tippy content="Upload video" placement='bottom'>
+                                <button className={cx('action-btn')}>
+                                    <FontAwesomeIcon icon={faUpload}/> 
+                                </button>
+                            </Tippy>
+                        </>
+                    ) : (
+                        <>
+                            <Button text>Upload </Button>
+                            <Button primary >Login </Button>
+                        </>
+                    )}    
                     <Menu
-                        items={MENU_ITEMS}
+                        items={currentUser ? userMenu : MENU_ITEMS}
                     >
-                        <button className={cx('more-btn')}>
-                            <FontAwesomeIcon icon={faEllipsisVertical}/>
-                        </button>
+                        {currentUser ? (
+                            <img src="https://scontent.fdad3-5.fna.fbcdn.net/v/t39.30808-6/547832028_1211565047672633_6877938207433034125_n.jpg?stp=dst-jpg_s1080x2048_tt6&_nc_cat=102&ccb=1-7&_nc_sid=833d8c&_nc_eui2=AeHkDw0dQHiX9n4BsXlymw3czsJ0VBwYEcPOwnRUHBgRw2ZsZjtucsto8rCi7xAs8YfgxZ_0AMGbXqqiBP9fyJFJ&_nc_ohc=wF5npYwBx18Q7kNvwHfkiaZ&_nc_oc=AdkZu_F7atXhTcRwRom84Ppi4cxjSKRq68VlXD-24qFFb_F9oSh_ZEDN_SwHwrBkJrg&_nc_zt=23&_nc_ht=scontent.fdad3-5.fna&_nc_gid=spemXMWAzBJXH4wkkJ46oA&oh=00_AfYJLFGVBJbik8WytyRWiQGgC3bL2IEkzX5vve-zLmJlQA&oe=68CD7147"
+                            className={cx('user-avatar')} 
+                            alt='Nguyen A'/>
+                        ) : (
+                            <button className={cx('more-btn')}>
+                                <FontAwesomeIcon icon={faEllipsisVertical}/>
+                            </button>
+                        )}
                     </Menu>
                 </div>
-                
             </div>
         </header>
     );

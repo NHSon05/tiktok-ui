@@ -38,11 +38,12 @@ function Menu({children, items = []}) {
     return ( 
         <Tippy
             interactive
+            trigger='click'
             placement='bottom-end'
             render={(attrs) => (
                 <div className={cx('menu-list')} tabIndex="-1" {...attrs}>
                     <Wrapper className={cx('menu-popper')}>
-                        <Header title='Language'/>
+                        {/* <Header title='Language'/> */}
                         {renderItem()}
                     </Wrapper>
                 </div>
