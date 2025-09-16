@@ -1,6 +1,6 @@
 import HeadlessTippy from '@tippyjs/react/headless';
 import Tippy from '@tippyjs/react';
-import { faCircleXmark, faSpinner, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { faCircleXmark, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import classNames from 'classnames/bind';
@@ -22,10 +22,12 @@ function Search() {
     const handleHideResult = () => {setShowResult(false)}
 
     useEffect(() => {
-        setTimeout(() => {
-            setSearchResult([1,2,3]);
-        }, 0);
-    },[])
+        fetch('https://tiktok.fullstack.edu.vn/api/users/search?q=hoaa&type=less')
+            .then(res => res.json())
+            .then(res => {
+                console.log(res.data);
+            })
+    },[searchValue])
 
     const handleClear = () => {
         setSearchValue('');
