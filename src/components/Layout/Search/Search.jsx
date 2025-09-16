@@ -9,6 +9,7 @@ import styles from './Search.module.scss'
 import { useEffect, useState,useRef } from 'react';
 
 import Wrapper from '../../Popper/Wrapper';
+import AccountItem from '../../AccountItem';
 
 
 const cx = classNames.bind(styles)
@@ -22,10 +23,15 @@ function Search() {
     const handleHideResult = () => {setShowResult(false)}
 
     useEffect(() => {
-        fetch('https://tiktok.fullstack.edu.vn/api/users/search?q=hoaa&type=less')
+
+        if (!searchValue.trim()){
+            return;
+        }
+
+        fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(searchValue)}&type=less`)
             .then(res => res.json())
             .then(res => {
-                console.log(res.data);
+                setSearchResult(res.data);
             })
     },[searchValue])
 
@@ -42,10 +48,10 @@ function Search() {
             render={(attrs) => (
                 <div className={cx('search-result')} tabIndex="-1" {...attrs}>
                     <Wrapper>
-                        <h2 className={cx('search-title')}>Accounts</h2>
-                        <h2 className={cx('search-title')}>Accounts</h2>
-                        <h2 className={cx('search-title')}>Accounts</h2>
-                        <h2 className={cx('search-title')}>Accounts</h2>
+                        <h4 className={cx('search-title')}>Accounts</h4>
+                        {searchResult.map((result) => (
+                                <AccountItem key={result.id} data={result} />
+                        ))}
                     </Wrapper>
                 </div>
             )}
@@ -60,9 +66,9 @@ function Search() {
             />
             {!!searchValue && (
                 <button className={cx('clear')} 
-                        onClick={() => {
-                            handleClear
-                        }}>
+                    onClick={() => {
+                        handleClear
+                    }}>
                     <FontAwesomeIcon icon={faCircleXmark}/>
                 </button>
             )}
