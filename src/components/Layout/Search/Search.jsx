@@ -10,6 +10,7 @@ import { useEffect, useState,useRef } from 'react';
 
 import Wrapper from '../../Popper/Wrapper';
 import AccountItem from '../../AccountItem';
+import { useDebounce } from '../../../hooks';
 
 
 const cx = classNames.bind(styles)
@@ -22,18 +23,21 @@ function Search() {
     const [showResult, setShowResult] = useState(true);
     const handleHideResult = () => {setShowResult(false)}
 
+    const debounced = useDebounce(searchValue, 500);
+
+
     useEffect(() => {
 
-        if (!searchValue.trim()){
+        if (!debounced.trim()){
             return;
         }
 
-        fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(searchValue)}&type=less`)
+        fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(debounced)}&type=less`)
             .then(res => res.json())
             .then(res => {
                 setSearchResult(res.data);
             })
-    },[searchValue])
+    },[debounced])
 
     const handleClear = () => {
         setSearchValue('');
