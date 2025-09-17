@@ -3,11 +3,14 @@ import Tippy from '@tippyjs/react';
 import { faCircleXmark, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
+
+// import * as request from '../../../utils/request';
 import classNames from 'classnames/bind';
 import styles from './Search.module.scss'
 
 import { useEffect, useState,useRef } from 'react';
 
+import { search } from '../../../apiServieces/searchServices';
 import Wrapper from '../../Popper/Wrapper';
 import AccountItem from '../../AccountItem';
 import { useDebounce } from '../../../hooks';
@@ -23,20 +26,27 @@ function Search() {
     const [showResult, setShowResult] = useState(true);
     const handleHideResult = () => {setShowResult(false)}
 
+//  1: ''
+//  2: h
     const debounced = useDebounce(searchValue, 500);
 
 
     useEffect(() => {
 
         if (!debounced.trim()){
+            setSearchResult([]);
             return;
         }
 
-        fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(debounced)}&type=less`)
-            .then(res => res.json())
-            .then(res => {
-                setSearchResult(res.data);
-            })
+        // XMLHttpRequest
+        // Fetch
+
+        // full_name -> fullName
+        const fetchApi = async () => {
+            const result = await search(debounced);
+            setSearchResult(result.data);  
+        }
+        fetchApi();
     },[debounced])
 
     const handleClear = () => {
@@ -53,8 +63,11 @@ function Search() {
                 <div className={cx('search-result')} tabIndex="-1" {...attrs}>
                     <Wrapper>
                         <h4 className={cx('search-title')}>Accounts</h4>
+                        {/* {console.log(searchResult.data)} */}
+                        {/* {searchResult.map((result) => ( */}
+                        
                         {searchResult.map((result) => (
-                                <AccountItem key={result.id} data={result} />
+                            <AccountItem key={result.id} data={result} />
                         ))}
                     </Wrapper>
                 </div>
@@ -71,7 +84,7 @@ function Search() {
             {!!searchValue && (
                 <button className={cx('clear')} 
                     onClick={() => {
-                        handleClear
+                        handleClear()
                     }}>
                     <FontAwesomeIcon icon={faCircleXmark}/>
                 </button>
