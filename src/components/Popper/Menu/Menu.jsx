@@ -44,12 +44,11 @@ function Menu({children, items = []}) {
                 <div className={cx('menu-list')} tabIndex="-1" {...attrs}>
                     <Wrapper className={cx('menu-popper')}>
                         {/* <Header title='Language'/> */}
-                        {renderItem()}
+                        <div className={cx('menu-body')}>{renderItem()}</div>
                     </Wrapper>
                 </div>
             )}
         >
-
             {children}
         </Tippy>
     );

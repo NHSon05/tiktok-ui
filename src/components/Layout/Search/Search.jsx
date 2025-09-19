@@ -67,47 +67,50 @@ function Search() {
     }
 
     return (  
-        <HeadlessTippy
-            interactive
-            visible={showResult && searchResult.length > 0}
-            render={(attrs) => (
-                <div className={cx('search-result')} tabIndex="-1" {...attrs}>
-                    <Wrapper>
-                        <h4 className={cx('search-title')}>Accounts</h4>
-                        {/* {console.log(searchResult.data)} */}
-                        {/* {searchResult.map((result) => ( */}
-                        
-                        {searchResult.map((result) => (
-                            <AccountItem key={result.id} data={result} />
-                        ))}
-                    </Wrapper>
+        <>
+            <HeadlessTippy
+                interactive
+                appendTo={() => document.body}
+                visible={showResult && searchResult.length > 0}
+                render={(attrs) => (
+                    <div className={cx('search-result')} tabIndex="-1" {...attrs}>
+                        <Wrapper>
+                            <h4 className={cx('search-title')}>Accounts</h4>
+                            {/* {console.log(searchResult.data)} */}
+                            {/* {searchResult.map((result) => ( */}
+                            
+                            {searchResult.map((result) => (
+                                <AccountItem key={result.id} data={result} />
+                            ))}
+                        </Wrapper>
+                    </div>
+                )}
+                onClickOutside={handleHideResult}
+            >
+                <div className={cx('search')}>
+                    <input  
+                        ref={searchRef} value={searchValue}  placeholder='Search accounts and videos' 
+                        spellCheck={false} 
+                        onChange={handleChange} 
+                        onFocus={() => setShowResult(true)}
+                    />
+                    {!!searchValue && (
+                        <button className={cx('clear')} 
+                            onClick={() => {
+                                handleClear()
+                            }}>
+                            <FontAwesomeIcon icon={faCircleXmark}/>
+                        </button>
+                    )}
+                    {/* Loading */}
+                    {/* <FontAwesomeIcon className={cx('loading')} icon={faSpinner}/> */}
+                
+                    <button className={cx('search-btn')} onClick={handleSubmit}>
+                        <FontAwesomeIcon icon={faMagnifyingGlass}/>
+                    </button>
                 </div>
-            )}
-            onClickOutside={handleHideResult}
-        >
-        <div className={cx('search')}>
-            <input  
-                ref={searchRef} value={searchValue}  placeholder='Search accounts and videos' 
-                spellCheck={false} 
-                onChange={handleChange} 
-                onFocus={() => setShowResult(true)}
-            />
-            {!!searchValue && (
-                <button className={cx('clear')} 
-                    onClick={() => {
-                        handleClear()
-                    }}>
-                    <FontAwesomeIcon icon={faCircleXmark}/>
-                </button>
-            )}
-            {/* Loading */}
-            {/* <FontAwesomeIcon className={cx('loading')} icon={faSpinner}/> */}
-        
-            <button className={cx('search-btn')} onClick={handleSubmit}>
-                <FontAwesomeIcon icon={faMagnifyingGlass}/>
-            </button>
-        </div>
-    </HeadlessTippy>
+            </HeadlessTippy>
+        </>
     );
 }
 
