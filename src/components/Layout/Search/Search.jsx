@@ -57,9 +57,13 @@ function Search() {
 
     const handleChange = (e) => {
         const searchValue = e.target.value;
-        if (!searchValue.startsWith(' ') || searchValue.trim()){
+        if (!searchValue.startsWith(' ')){
             setSearchValue(searchValue);
         }
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
     }
 
     return (  
@@ -99,7 +103,7 @@ function Search() {
             {/* Loading */}
             {/* <FontAwesomeIcon className={cx('loading')} icon={faSpinner}/> */}
         
-            <button className={cx('search-btn')}>
+            <button className={cx('search-btn')} onClick={handleSubmit}>
                 <FontAwesomeIcon icon={faMagnifyingGlass}/>
             </button>
         </div>
