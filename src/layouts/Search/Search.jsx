@@ -10,10 +10,10 @@ import styles from './Search.module.scss'
 
 import { useEffect, useState,useRef } from 'react';
 
-import { search } from '../../../apiServieces/searchServices';
-import Wrapper from '../../Popper/Wrapper';
-import AccountItem from '../../AccountItem';
-import { useDebounce } from '../../../hooks';
+import { search } from '../../services/searchServices';
+import Wrapper from '../../components/Popper/Wrapper';
+import AccountItem from '../../components/AccountItem';
+import { useDebounce } from '../../hooks';
 
 
 const cx = classNames.bind(styles)

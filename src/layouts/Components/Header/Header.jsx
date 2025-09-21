@@ -8,10 +8,10 @@ import Tippy from '@tippyjs/react';
 
 import styles from './Header.module.scss'
 import classNames from 'classnames/bind';
-import Button from '../../../Button/Button';
+import Button from '../../../components/Button/Button';
 
 
-import Menu from '../../../Popper/Menu/Menu';
+import Menu from '../../../components/Popper/Menu/Menu';
 import Search from '../../Search/Search';
 
 const cx = classNames.bind(styles)
