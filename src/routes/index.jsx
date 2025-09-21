@@ -1,5 +1,5 @@
 // Layout
-import { HeaderOnly } from "../layouts";
+import { HeaderOnly } from "../layouts/exportLayouts";
 
 // import routesConfig from "../config/routes";
 import config from "../config";

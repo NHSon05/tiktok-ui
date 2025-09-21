@@ -3,7 +3,6 @@ import Tippy from '@tippyjs/react';
 import { faCircleXmark, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-
 // import * as request from '../../../utils/request';
 import classNames from 'classnames/bind';
 import styles from './Search.module.scss'
@@ -12,12 +11,10 @@ import { useEffect, useState,useRef } from 'react';
 
 import { search } from '../../services/searchServices';
 import Wrapper from '../../components/Popper/Wrapper';
-import AccountItem from '../../components/AccountItem';
-import { useDebounce } from '../../hooks';
-
+import AccountItem from '../../components/AccountItem/exportAccountItem';
+import { useDebounce } from '../../hooks/exportHook';
 
 const cx = classNames.bind(styles)
-
 
 function Search() {
     const [searchValue, setSearchValue] = useState('');
