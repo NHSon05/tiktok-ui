@@ -9,11 +9,13 @@ import Following from "../Pages/Following/Following";
 import Profile from "../Pages/Profile/Profile";
 import Upload from "../Pages/Upload/Upload";
 import Search from "../Pages/Search/Search";
+import Live from "../pages/Live/Live";
 
 // Public routes
 const publicRoutes = [
     {path: `${config.routesConfig.home}` , component: Home}, 
-    {path: `${config.routesConfig.following}` , component: Following}, 
+    {path: `${config.routesConfig.following}` , component: Following},
+    {path: `${config.routesConfig.live}` , component: Live}, 
     {path: `${config.routesConfig.profile}` , component: Profile}, 
     {path: `${config.routesConfig.upload}` , component: Upload, layout: HeaderOnly}, 
     {path: `${config.routesConfig.search}` , component: Search, layout: null}, 
