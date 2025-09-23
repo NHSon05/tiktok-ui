@@ -5,20 +5,29 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-regular-svg-icons";
 import 'tippy.js/dist/tippy.css'; // optional
 import Tippy from '@tippyjs/react/headless';
+import Wrapper from "../Popper/Wrapper";
+import AccountPreview from "./AccountPreview/AccountPreview";
 
 const cx = classNames.bind(styles)
 
 function AccountItem() {
+    const renderPreview = (props) => {
+        return (
+            <div  tabIndex="-1" {...props}>
+                <Wrapper>
+                    <AccountPreview/>
+                </Wrapper>
+            </div>
+        )
+    }
+
     return (  
         <div>
             <Tippy
                 interactive
                 delay={[800, 0]}
                 placement='bottom-start'
-                render={ 
-                    () => (
-                        <h1>Account Item Preview</h1>
-                    )}
+                render={renderPreview}
             >
                 <div className={cx('account-item')}>
                     <img 
