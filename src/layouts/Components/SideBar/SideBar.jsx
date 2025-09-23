@@ -4,6 +4,7 @@ import Menu, {MenuItem} from "./Menu";
 import config from "../../../config";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { HomeIcon, UserGroupIcon, LiveIcon, HomeActiveIcon, UserGroupActiveIcon, LiveActiveIcon } from "../../../components/Icons/Icon";
+import SuggestedAccounts from "../../../components/SuggestedAccount";
 // import { faHouse, faUserGroup, faVideo } from "@fortawesome/free-solid-svg-icons";
 
 
@@ -15,8 +16,11 @@ function Sidebar() {
             <Menu>
                 <MenuItem title="For you" to={config.routesConfig.home} icon={<HomeIcon/>}  activeIcon={<HomeActiveIcon/>}/>
                 <MenuItem title="Following" to={config.routesConfig.following} icon={<UserGroupIcon/>} activeIcon={<UserGroupActiveIcon/>}/>
-                <MenuItem title="LIVE" to={config.routesConfig.live} icon={<LiveIcon/>} activeIcon={<LiveActiveIcon/>}/>
+                <MenuItem title="LIVE" to={config.routesConfig.live} icon={<LiveIcon/>} activeIcon={<LiveActiveIcon/ >}/>
             </Menu>
+            <SuggestedAccounts
+                label='Suggested Account'
+            />
         </aside>
     );
 }
